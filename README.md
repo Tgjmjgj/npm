@@ -47,6 +47,7 @@ action "Publish" {
 * `NPM_REGISTRY_URL` - **Optional**. To specify a registry to authenticate with. Defaults to `registry.npmjs.org`
 * `NPM_STRICT_SSL` - **Optional**. Specify false if your registry is insecure and uses the `http` protocol. Defaults to `true`
 * `NPM_CONFIG_USERCONFIG` - **Optional**. To specify a non-default per-user configuration file. Defaults to `$HOME/.npmrc` ([more info](https://docs.npmjs.com/misc/config#npmrc-files))
+* `DIR` - **Optional**. To specify a folder in your repo in which all commands will be executed. Project root by default `./`.
 
 #### Example
 
@@ -77,6 +78,20 @@ action "Publish" {
   secrets = ["NPM_AUTH_TOKEN"]
 }
 ```
+
+If your package.json located not in project root, as example, in ./functions directory, and you want to run commands in this folder
+you can specify this by `DIR` environment variable:
+
+```hcl
+action "Install dependencies" {
+  uses = "actions/npm@master"
+  args = "install"
+  env = {
+    DIR = "./functions"
+  }
+}
+```
+
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
