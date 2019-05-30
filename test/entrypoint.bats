@@ -46,3 +46,10 @@ function setup() {
   [ "${lines[1]}" = "registry=http://someOtherRegistry.someDomain.net" ]
   [ "${lines[2]}" = "strict-ssl=false" ]
 }
+
+@test "Workspace directory can be overridden" {
+  export DIR=$( mktemp -d )
+  run $GITHUB_WORKSPACE/entrypoint.sh help
+  echo "$output"
+  [ "$status" -eq 0 ]
+}
